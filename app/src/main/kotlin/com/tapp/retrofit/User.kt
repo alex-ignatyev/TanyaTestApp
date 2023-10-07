@@ -1,4 +1,4 @@
-package com.example.myapplication.retrofit
+package com.tapp.retrofit
 
 data class User(
     val id: Int,

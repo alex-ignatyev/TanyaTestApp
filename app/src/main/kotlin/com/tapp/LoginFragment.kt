@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.tapp
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.example.myapplication.adapter.ProductAdapter
-import com.example.myapplication.databinding.FragmentLoginBinding
-import com.example.myapplication.retrofit.AuthRequest
-import com.example.myapplication.retrofit.MainApi
+import com.tapp.adapter.ProductAdapter
+import com.tapp.retrofit.AuthRequest
+import com.tapp.retrofit.MainApi
 import com.squareup.picasso.Picasso
+import com.tapp.databinding.FragmentLoginBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
