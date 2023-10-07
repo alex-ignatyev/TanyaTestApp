@@ -1,8 +1,8 @@
-package com.example.myapplication
+package com.tapp
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.myapplication.databinding.ContentBaseBinding
+import com.tapp.databinding.ContentBaseBinding
 
 class BaseActivity : AppCompatActivity() {
 

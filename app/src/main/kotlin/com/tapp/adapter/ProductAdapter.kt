@@ -1,4 +1,4 @@
-package com.example.myapplication.adapter
+package com.tapp.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,9 +6,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myapplication.R
-import com.example.myapplication.databinding.ListItemBinding
-import com.example.myapplication.retrofit.Product
+import com.tapp.R
+import com.tapp.databinding.ListItemBinding
+import com.tapp.retrofit.Product
 
 class ProductAdapter : ListAdapter<Product, ProductAdapter.Holder>(Comparator()) {
 

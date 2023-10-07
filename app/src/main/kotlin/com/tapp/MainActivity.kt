@@ -1,13 +1,12 @@
-package com.example.myapplication
+package com.tapp
 
 import android.os.Bundle
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
-import com.example.myapplication.adapter.ProductAdapter
-import com.example.myapplication.databinding.ActivityMainBinding
-import com.example.myapplication.retrofit.AuthRequest
-import com.example.myapplication.retrofit.MainApi
-import com.example.myapplication.retrofit.User
+import com.tapp.adapter.ProductAdapter
+import com.tapp.databinding.ActivityMainBinding
+import com.tapp.retrofit.MainApi
+import com.tapp.retrofit.User
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.tapp
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.myapplication.adapter.ProductAdapter
-import com.example.myapplication.databinding.FragmentProductsBinding
-import com.example.myapplication.retrofit.MainApi
+import com.tapp.adapter.ProductAdapter
+import com.tapp.databinding.FragmentProductsBinding
+import com.tapp.retrofit.MainApi
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
