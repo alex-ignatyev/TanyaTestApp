@@ -1,4 +1,4 @@
-package com.tapp
+package com.tapp.ui.products
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,8 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.tapp.adapter.ProductAdapter
+import com.tapp.LoginViewModel
 import com.tapp.databinding.FragmentProductsBinding
+import com.tapp.di.RetrofitClient
 import com.tapp.retrofit.MainApi
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -19,11 +20,11 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class ProductsFragment : Fragment() {
-    private val adapter: ProductAdapter = ProductAdapter()
+
     private var _binding: FragmentProductsBinding? = null
-    private lateinit var mainApi: MainApi
-    private val viewModel: LoginViewModel by activityViewModels()
     private val binding get() = _binding!!
+    private val viewModel: LoginViewModel by activityViewModels()
+    private val adapter: ProductsAdapter = ProductsAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,11 +36,10 @@ class ProductsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initRetrofit()
         initRcView()
         viewModel.token.observe(viewLifecycleOwner) { token ->
             CoroutineScope(Dispatchers.IO).launch {
-                val list = mainApi.getAllProducts(token)
+                val list = RetrofitClient.getApi().getAllProducts(token)
                 requireActivity().runOnUiThread {
                    adapter.submitList(list.products)
                 }
@@ -48,23 +48,8 @@ class ProductsFragment : Fragment() {
 
     }
 
-    private fun initRetrofit() {
-        val interceptor = HttpLoggingInterceptor()
-        interceptor.level = HttpLoggingInterceptor.Level.BODY
-
-        val client = OkHttpClient.Builder()
-            .addInterceptor(interceptor)
-            .build()
-
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://dummyjson.com").client(client)
-            .addConverterFactory(GsonConverterFactory.create()).build()
-
-        mainApi = retrofit.create(MainApi::class.java)
-    }
-
     private fun initRcView() = with(binding) {
-        rcView.layoutManager = LinearLayoutManager(context)
-        rcView.adapter = adapter
+        rc.layoutManager = LinearLayoutManager(context)
+        rc.adapter = adapter
     }
 }

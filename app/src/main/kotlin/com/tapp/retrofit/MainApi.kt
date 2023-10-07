@@ -1,5 +1,7 @@
 package com.tapp.retrofit
 
+import com.tapp.data.response.UserResponse
+import com.tapp.domain.User
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -14,7 +16,7 @@ interface MainApi {
     suspend fun getProductById(@Path("id") id: Int): Product
 
     @POST("auth/login")
-    suspend fun auth(@Body authRequest: AuthRequest): Response<User>
+    suspend fun auth(@Body authRequest: AuthRequest): Response<UserResponse>
 
     @Headers("Content-Type: application/json")
     @GET("products")

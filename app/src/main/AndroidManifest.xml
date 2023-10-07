@@ -10,7 +10,7 @@
         android:theme="@style/Theme.Tapp">
 
         <activity
-            android:name=".BaseActivity"
+            android:name=".MainActivity"
             android:exported="true">
 
             <intent-filter>

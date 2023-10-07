@@ -1,4 +1,4 @@
-package com.tapp.adapter
+package com.tapp.ui.products
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,13 +7,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.tapp.R
-import com.tapp.databinding.ListItemBinding
+import com.tapp.databinding.ItemPhoneBinding
 import com.tapp.retrofit.Product
 
-class ProductAdapter : ListAdapter<Product, ProductAdapter.Holder>(Comparator()) {
+class ProductsAdapter : ListAdapter<Product, ProductsAdapter.Holder>(Comparator()) {
 
     class Holder(view: View) : RecyclerView.ViewHolder(view) {
-        private val binding = ListItemBinding.bind(view)
+        private val binding = ItemPhoneBinding.bind(view)
 
         fun bind(product: Product) = with(binding) {
             title.text = product.title
@@ -33,7 +33,7 @@ class ProductAdapter : ListAdapter<Product, ProductAdapter.Holder>(Comparator())
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.list_item, parent, false)
+            .inflate(R.layout.item_phone, parent, false)
         return Holder(view)
     }
 
