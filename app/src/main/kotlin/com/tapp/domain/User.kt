@@ -8,7 +8,7 @@ data class User(
     val token: String
 )
 
-fun UserResponse.toDomain(): User{
+fun UserResponse.toDomain(): User {
     return User(
         firstName = this.firstName,
         image = this.image,
