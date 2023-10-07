@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.tapp.LoginFragment"
+        android:name="com.tapp.ui.login.LoginFragment"
         android:label="LoginFragment"
         tools:layout="@layout/fragment_login">
 
@@ -18,7 +18,7 @@
 
     <fragment
         android:id="@+id/productsFragment"
-        android:name="com.tapp.ProductsFragment"
+        android:name="com.tapp.ui.products.ProductsFragment"
         android:label="ProductsFragment"
         tools:layout="@layout/fragment_products" />
 </navigation>

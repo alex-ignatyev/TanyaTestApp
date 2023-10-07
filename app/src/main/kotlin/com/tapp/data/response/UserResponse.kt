@@ -1,6 +1,6 @@
-package com.tapp.retrofit
+package com.tapp.data.response
 
-data class User(
+data class UserResponse(
     val id: Int,
     val username: String,
     val email: String,
