@@ -6,50 +6,46 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.tapp.LoginViewModel
+import com.tapp.data.response.ProductResponse
+import com.tapp.data.response.ProductsResponse
 import com.tapp.databinding.FragmentProductsBinding
-import com.tapp.di.RetrofitClient
-import com.tapp.retrofit.MainApi
+import com.tapp.di.InternetClient
+import com.tapp.domain.Product
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import kotlinx.coroutines.withContext
 
 class ProductsFragment : Fragment() {
 
     private var _binding: FragmentProductsBinding? = null
     private val binding get() = _binding!!
     private val viewModel: LoginViewModel by activityViewModels()
-    private val adapter: ProductsAdapter = ProductsAdapter()
+    private val adapter = ProductsAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentProductsBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+        binding.rc.adapter = adapter
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initRcView()
-        viewModel.token.observe(viewLifecycleOwner) { token ->
-            CoroutineScope(Dispatchers.IO).launch {
-                val list = RetrofitClient.getApi().getAllProducts(token)
-                requireActivity().runOnUiThread {
-                   adapter.submitList(list.products)
-                }
+        val internetClient = InternetClient
+        val mainApi = internetClient.createMainApi()
+        CoroutineScope(Dispatchers.IO).launch {
+            val productsResponse: ProductsResponse = mainApi.getAllProducts(viewModel.token.value!!)
+            val listProductResponse: List<ProductResponse> = productsResponse.products
+            val products: List<Product> = listProductResponse.map { productResponse ->
+                Product(
+                    title = productResponse.title,
+                    description = productResponse.description
+                )
+            }
+            withContext(Dispatchers.Main){
+                adapter.submitList(products)
             }
         }
-
-    }
-
-    private fun initRcView() = with(binding) {
-        rc.layoutManager = LinearLayoutManager(context)
-        rc.adapter = adapter
+        return binding.root
     }
 }
