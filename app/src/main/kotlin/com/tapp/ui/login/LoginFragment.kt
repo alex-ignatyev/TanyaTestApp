@@ -7,12 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.tapp.retrofit.AuthRequest
 import com.squareup.picasso.Picasso
 import com.tapp.LoginViewModel
 import com.tapp.R
+import com.tapp.data.request.LoginRequest
 import com.tapp.databinding.FragmentLoginBinding
-import com.tapp.di.RetrofitClient
+import com.tapp.di.InternetClient
 import com.tapp.domain.toDomain
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -42,7 +42,7 @@ class LoginFragment : Fragment() {
             }
             signin.setOnClickListener {
                 auth(
-                    AuthRequest(
+                    LoginRequest(
                         login.text.toString(),
                         password.text.toString()
                     )
@@ -51,9 +51,9 @@ class LoginFragment : Fragment() {
         }
     }
 
-    private fun auth(authRequest: AuthRequest) {
+    private fun auth(loginRequest: LoginRequest) {
         CoroutineScope(Dispatchers.IO).launch {
-            val response = RetrofitClient.getApi().auth(authRequest)
+            val response = InternetClient.createMainApi().auth(loginRequest)
             val message = response.errorBody()?.string()?.let {
                 JSONObject(it).getString("message")
             }

@@ -1,6 +1,13 @@
-package com.tapp.retrofit
+package com.tapp.data.response
 
-data class Product(
+data class ProductsResponse(
+    val products: List<ProductResponse>,
+    val total: Int,
+    val skip: Int,
+    val limit: Int
+)
+
+data class ProductResponse(
     val id: Int,
     val title: String,
     val description: String,
