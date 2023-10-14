@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.tapp.LoginViewModel
+import com.tapp.MainViewModel
 import com.tapp.data.response.ProductResponse
 import com.tapp.data.response.ProductsResponse
 import com.tapp.databinding.FragmentProductsBinding
@@ -21,7 +21,7 @@ class ProductsFragment : Fragment() {
 
     private var _binding: FragmentProductsBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: LoginViewModel by activityViewModels()
+    private val viewModel: MainViewModel by activityViewModels()
     private val adapter = ProductsAdapter()
 
     override fun onCreateView(
