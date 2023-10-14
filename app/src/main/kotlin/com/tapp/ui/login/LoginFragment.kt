@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -23,6 +24,11 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        mainViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            binding.signin.isEnabled = !isLoading
+            binding.signin.isClickable = !isLoading
+            binding.loader.isVisible = isLoading
+        }
         mainViewModel.error.observe(viewLifecycleOwner) { errorValue ->
             binding.error.text = errorValue
         }

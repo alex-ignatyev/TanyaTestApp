@@ -7,13 +7,18 @@ import com.tapp.data.request.LoginRequest
 import com.tapp.data.response.UserResponse
 import com.tapp.di.InternetClient
 import com.tapp.domain.User
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class MainViewModel : ViewModel() {
     val token = MutableLiveData<String>()
     val error = MutableLiveData<String>()
+    val isLoading = MutableLiveData<Boolean>(false)
 
     fun login(userName: String, password: String) {
+        isLoading.value = true
+        error.value = ""
+
         viewModelScope.launch {
             val loginRequest = LoginRequest(userName, password)
             val internetClient = InternetClient
@@ -21,10 +26,13 @@ class MainViewModel : ViewModel() {
             try {
                 val loginResponse: UserResponse = mainApi.login(loginRequest)
                 val user = User(firstName = loginResponse.firstName, image = loginResponse.image)
+                isLoading.value = false
             } catch (e: Exception) {
                 error.value = "Ошибка авторизации"
+                isLoading.value = false
             }
         }
+
 
 
         /*    CoroutineScope(Dispatchers.IO).launch {
